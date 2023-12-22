@@ -24,11 +24,13 @@ About Website:
  * The website is fully functional 
  * Consists of 3 pages as required (signup,login,contactus)
  * I used HTML AND CSS for the front-end part and for Back-end i used Python With MongoDB for database.
- * To connect to MongoDB server you can connect and see the back-end or the Database part by using          MongoDBcompass application the connection link is given below-
+ * To connect to MongoDB server you can connect and see the back-end or the Database part by using 
+   MongoDBcompass application the connection link is given below-
 
    (mongodb+srv://aaryantyagi17:vAqL9FKNF7ft52uz@test1.e6kgoi4.mongodb.net/)
 
- * After connecting to the database you will see the name of Database is Xenon_Stack in Database we have    mainly 2 Collections i.e.  users and contacts
+ * After connecting to the database you will see the name of Database is Xenon_Stack in Database we have
+   mainly 2 Collections i.e.  users and contacts
  * In users - all the signup data is filled and authenticated at the time of login requests
  * In contacts - all the contacts us query are stroed so that later they can be used for contacting	
 #####################################################################################################
