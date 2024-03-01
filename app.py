@@ -1,16 +1,10 @@
-from flask import Flask,render_template,request,jsonify,redirect
+from flask import Flask,render_template,request,jsonify,redirect,flash,url_for
 from pymongo import MongoClient
-app=Flask(__name__)
+app = Flask(__name__,  static_url_path='/static')
 client = MongoClient('mongodb+srv://aaryantyagi17:vAqL9FKNF7ft52uz@test1.e6kgoi4.mongodb.net/') 
 db = client['xenon_stack']  
 users_collection = db['users']
 users_contact=db['contacts']
-
-@app.route('/')
-def home():
-    render_template('signup.html')
-    return redirect('/signup')
-
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -32,22 +26,30 @@ def login():
             return jsonify({'message': 'Invalid credentials'}), 401
     return render_template('login.html')  # Render the login form
 
+@app.route('/flask_function', methods=['POST'])
+def flask_f():
+    if request.method == 'POST':
+        username = request.form['username']
+        existing_username = users_collection.find_one({'username': username})
+        if existing_username:
+            result={'success':True}
+        else:
+            result={'success': False}
+        return jsonify(result)
 
-
+@app.route('/')
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-        confirm_password = request.form['confirm_password']
-
-        if password != confirm_password:
-            return jsonify({'message': 'Passwords do not match'}), 400
 
         existing_username = users_collection.find_one({'username': username})
         if existing_username:
-            return jsonify({'message': 'Username already exists'}), 409
+
+            return render_template("signup.html")
+             
 
         existing_email = users_collection.find_one({'email': email})
         if existing_email:
