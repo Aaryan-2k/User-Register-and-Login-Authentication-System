@@ -5,26 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up form</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='sty.css') }}">
-
 </head>
 <body>
-    
-        <div class="container">
-            <form action="/signup" method="POST" class="form" onsubmit="return valid()">
-                <h2>SIGN UP</h2>
-                <input type="text" name="username" class="box" id="username" placeholder="Enter username" required>
-                <input type="email" name="email" class="box" placeholder="Enter Email" required>
-                <input type="password" name="password" id="password" class="box" placeholder="Enter password" required>
-                <input type="password" name="confirm_password" id="confirm_password" class="box" placeholder="Confirm password" required>
-                <div id="p10"></div>
-                <button type="submit" id="submit">Register</button>
-            </form>
-            
-            <div class="side">
-                <img src="/static/img.png" alt="">
-            </div>
+    <div class="container">
+        <form action="/signup" method="POST" class="form" id="frrm" onsubmit="return valid()">
+            <h2>SIGN UP</h2>
+            <input type="text" name="username" class="box" id="username" placeholder="Enter username" required>
+            <input type="email" name="email" class="box" placeholder="Enter Email" required>
+            <input type="password" name="password" id="password" class="box" placeholder="Enter password" required>
+            <input type="password" name="confirm_password" id="confirm_password" class="box" placeholder="Confirm password" required>
+            <div id="p10"></div>
+            <input type="submit" id="submit">
+        </form>
+        <div class="side">
+            <img src="/static/img.png" alt="">
         </div>
-        
-        <script src="{{ url_for('static', filename='script/main.js') }}"></script>
+    </div>
+    <script src="{{ url_for('static', filename='script/main.js') }}"></script>
 </body>
 </html>

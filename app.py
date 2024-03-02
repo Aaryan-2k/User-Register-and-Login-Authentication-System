@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,jsonify,redirect,flash,url_for
+from flask import Flask,render_template,request,jsonify,redirect,flash,url_for,make_response
 from pymongo import MongoClient
 app = Flask(__name__,  static_url_path='/static')
 client = MongoClient('mongodb+srv://aaryantyagi17:vAqL9FKNF7ft52uz@test1.e6kgoi4.mongodb.net/') 
@@ -24,18 +24,22 @@ def login():
             return render_template('succ.html')  # Redirect to a success page after login
         else:
             return jsonify({'message': 'Invalid credentials'}), 401
-    return render_template('login.html')  # Render the login form
+    return render_template('login.html')  
 
-@app.route('/flask_function', methods=['POST'])
-def flask_f():
-    if request.method == 'POST':
-        username = request.form['username']
-        existing_username = users_collection.find_one({'username': username})
-        if existing_username:
-            result={'success':True}
-        else:
-            result={'success': False}
-        return jsonify(result)
+@app.route('/fun', methods=['POST'])
+def fun():
+    req = request.get_json()
+    print(req)
+    username = req["username"]
+    existing_username = users_collection.find_one({'username': username})
+    if existing_username:
+        result={'success':1}
+    else:
+        result={'success':0}
+    print(result)
+    res=make_response(jsonify(result))
+    print(res)
+    return res
 
 @app.route('/')
 @app.route('/signup', methods=['GET', 'POST'])
@@ -44,26 +48,17 @@ def signup():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-
-        existing_username = users_collection.find_one({'username': username})
-        if existing_username:
-
-            return render_template("signup.html")
-             
-
         existing_email = users_collection.find_one({'email': email})
         if existing_email:
             return jsonify({'message': 'Email already exists'}), 409
-
         new_user = {
             'username': username,
             'email': email,
             'password': password  
         }
         users_collection.insert_one(new_user)
-        return render_template('create.html')  # Redirect to a success page or any desired page after signup
-
-    return render_template('signup.html')  # Render the signup form
+        return render_template('create.html') 
+    return render_template('signup.html')  
         
 @app.route('/contact',methods=['GET','POST'])
 def contact():
@@ -74,7 +69,6 @@ def contact():
         phone = request.form['phone']
         query = request.form['query']
 
-        # Store contact information in MongoDB
         contact_data = {
             'firstname': firstname,
             'lastname': lastname,
@@ -83,7 +77,6 @@ def contact():
             'query': query
         }
 
-        # Insert into MongoDB collection
         users_contact.insert_one(contact_data)
 
         return "Querysubmitted successfully!  "
