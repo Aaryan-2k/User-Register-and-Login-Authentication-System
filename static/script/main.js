@@ -1,4 +1,5 @@
-let form_valid=false
+let form_valid_email=false
+let form_valid_username=false
 let url=window.origin
 function valid() {
   var pass = document.getElementById("password").value;
@@ -6,7 +7,7 @@ function valid() {
   var dyn = document.querySelector("#p10");
   var bx1 = document.querySelector("#password");
   var bx2 = document.querySelector("#confirm_password");
-  if (form_valid==false){
+  if (form_valid_email==false || form_valid_username==false){
     return false
   }
 
@@ -70,13 +71,13 @@ email.addEventListener('blur', async function() {
   if(email_available){
     mailbox.style.border="1px solid green"
     dyn.innerHTML=""
-    form_valid=true
+    form_valid_email=true
   }
   else{
     dyn.innerHTML="<label>Email already used</label>"
     dyn.style.color="red"
   mailbox.style.border="1px solid red"
-  form_valid=false
+  form_valid_email=false
   }
 })
 
@@ -94,7 +95,7 @@ usernameInput.addEventListener('blur', async function () {
   } else {
     const isUsernameAvailable = await checkusername();
     if (!isUsernameAvailable) {
-      form_valid=false
+      form_valid_username=false
       dyn.innerHTML = "<label>Username already exists!</label>";
       dyn.style.color = "red";
       username_box.style.border = "1px solid red";
@@ -102,7 +103,7 @@ usernameInput.addEventListener('blur', async function () {
       username_box.style.border = "1px solid green";
       dyn.innerHTML = "";
       dyn.style.color = "green";
-      form_valid=true
+      form_valid_username=true
     }
   }
 });
