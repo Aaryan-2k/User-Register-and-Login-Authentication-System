@@ -25,6 +25,20 @@ def login():
         else:
             return jsonify({'message': 'Invalid credentials'}), 401
     return render_template('login.html')  
+@app.route('/check_mail',methods=['POST'])
+def check_mail():
+    req=request.get_json()
+    print(req)
+    usermail=req['email']
+    exist_email=users_collection.find_one({"email":usermail})
+    if exist_email:
+        result={"result":True,"message":"Email already used"}
+    else:
+        result={"result":False,"message":"Email available"}
+    response=make_response(jsonify(result))
+    print(result)
+    
+    return response
 
 @app.route('/fun', methods=['POST'])
 def fun():
