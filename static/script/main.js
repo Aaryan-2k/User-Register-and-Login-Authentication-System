@@ -1,4 +1,5 @@
 let form_valid=false
+let url=window.origin
 function valid() {
   var pass = document.getElementById("password").value;
   var pas = document.getElementById("confirm_password").value;
@@ -24,7 +25,7 @@ async function checkusername() {
   var name = document.getElementById("username").value;
   console.log("Checking username");
   try {
-    const response = await fetch("http://127.0.0.1:5000/fun", {
+    const response = await fetch(`${url}/fun`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -45,7 +46,7 @@ async function checkusername() {
 async function check_mail(){
   let email=document.getElementById("email").value
   try{
-  const response= await fetch("http://127.0.0.1:5000/check_mail",{
+  const response= await fetch(`${url}/check_mail`,{
     method:"POST",
     headers: {
       "Content-Type":"application/json"
@@ -53,8 +54,6 @@ async function check_mail(){
     body : JSON.stringify({"email":email}),
   })
   const data=await response.json()
-  console.log(data.result)
-  console.log(data.result==false)
   return data.result==false;
 
 
@@ -70,7 +69,6 @@ email.addEventListener('blur', async function() {
   var mailbox=document.getElementById("email")
   var email_available=await check_mail()
   var dyn = document.querySelector("#p10");
-  console.log(email_available)
   if(email_available){
     mailbox.style.border="1px solid green"
     dyn.innerHTML=""

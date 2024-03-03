@@ -28,7 +28,6 @@ def login():
 @app.route('/check_mail',methods=['POST'])
 def check_mail():
     req=request.get_json()
-    print(req)
     usermail=req['email']
     exist_email=users_collection.find_one({"email":usermail})
     if exist_email:
@@ -36,23 +35,21 @@ def check_mail():
     else:
         result={"result":False,"message":"Email available"}
     response=make_response(jsonify(result))
-    print(result)
     
     return response
 
 @app.route('/fun', methods=['POST'])
 def fun():
     req = request.get_json()
-    print(req)
     username = req["username"]
     existing_username = users_collection.find_one({'username': username})
     if existing_username:
         result={'success':1}
     else:
         result={'success':0}
-    print(result)
+
     res=make_response(jsonify(result))
-    print(res)
+
     return res
 
 @app.route('/')
