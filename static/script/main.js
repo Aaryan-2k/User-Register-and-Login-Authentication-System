@@ -34,8 +34,6 @@ async function checkusername() {
     });
 
     const data = await response.json();
-    console.log(data);
-    console.log("abcd");
 
     return data.success === 0;
   } catch (error) {
@@ -93,11 +91,8 @@ usernameInput.addEventListener('blur', async function () {
   var dyn = document.querySelector("#p10");
 
   if (usernameInput.value.length === 0) {
-    console.log("kuch ni keruunga");
   } else {
     const isUsernameAvailable = await checkusername();
-    console.log(isUsernameAvailable);
-
     if (!isUsernameAvailable) {
       form_valid=false
       dyn.innerHTML = "<label>Username already exists!</label>";
